@@ -38,7 +38,6 @@ export class SignUpController implements Controller {
         body: 'success'
       }
     } catch (err) {
-      console.error('erro', err)
       return serverError()
     }
   }
