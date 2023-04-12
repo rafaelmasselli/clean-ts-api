@@ -1,14 +1,12 @@
+import { InvalidParamError, MissingParamError } from '../../../errors'
+import { badRequest, serverError } from '../../helpers/http-helper'
 import {
   type HttpRequest,
   type HttpResponse,
-  type EmailValidator,
-  type Controller
-} from '../protocols'
-
-import { badRequest, serverError } from '../helpers/http-helper'
-
-import { InvalidParamError, MissingParamError } from '../../errors'
-import { type AddAccount } from '../../domain/usecases/add-account'
+  type Controller,
+  type AddAccount,
+  type EmailValidator
+} from './signup-protocols'
 
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator
@@ -41,7 +39,9 @@ export class SignUpController implements Controller {
       if (!isValid) return badRequest(new InvalidParamError('email'))
 
       this.addAccountStub.add({
-        name, email, password
+        name,
+        email,
+        password
       })
 
       return {
