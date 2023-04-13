@@ -1,4 +1,4 @@
-import { type AccountModel } from '../../../domain/models/account'
+// import { type AccountModel } from '../../../domain/models/account'
 import {
   type AddAccountModel,
   type AddAccount
@@ -11,7 +11,7 @@ export class DbAddAccount implements AddAccount {
     this.encrypter = encrypter
   }
 
-  async add (account: AddAccountModel): Promise<AccountModel> {
+  async add (account: AddAccountModel): Promise<any> {
     await this.encrypter.encrypt(account.password)
     return await new Promise((resolve) => {
       resolve(null)
