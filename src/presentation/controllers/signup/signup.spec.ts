@@ -5,9 +5,9 @@ import {
 } from '../../../errors'
 import { SignUpController } from './signup'
 import {
+  type EmailValidator,
   type AddAccountModel,
   type AddAccount,
-  type EmailValidator,
   type AccountModel
 } from './signup-protocols'
 
