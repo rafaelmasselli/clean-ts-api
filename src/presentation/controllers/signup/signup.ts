@@ -4,8 +4,8 @@ import {
   type HttpRequest,
   type HttpResponse,
   type Controller,
-  type AddAccount,
-  type EmailValidator
+  type EmailValidator,
+  type AddAccount
 } from './signup-protocols'
 
 export class SignUpController implements Controller {
