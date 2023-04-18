@@ -3,6 +3,7 @@
     "emailvalidator",
     "encrypter",
     "Encrypter",
+    "mockado",
     "usecases"
   ]
 }
