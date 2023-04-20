@@ -1,10 +1,13 @@
 import { MongoHelper } from '../helpers/mongo-helper'
 import { AccountMongoRepository } from './account'
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
-    const MongoUrl = process.env.MONGO_UR
-    if (!MongoUrl) return new Error()
-    await MongoHelper.connect(MongoUrl)
+    const urlMongo = process.env.URL_MONGODB
+    if (!urlMongo) return new Error()
+    await MongoHelper.connect(urlMongo)
   })
 
   afterAll(async () => {
