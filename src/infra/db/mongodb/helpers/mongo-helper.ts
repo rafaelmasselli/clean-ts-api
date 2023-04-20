@@ -1,16 +1,19 @@
-import { MongoClient, type ConnectOptions } from 'mongodb'
+import { MongoClient, type Collection } from 'mongodb'
 
-export const MongoHelper = {
-  client: null as unknown as MongoClient,
-  async connection (url: string): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-    this.client = await MongoClient.connect(url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    } as ConnectOptions)
-  },
+export class MongoHelper {
+  static client: MongoClient
+  static uri: string
 
-  async disconnect (): Promise<void> {
+  static async connect (uri: string): Promise<void> {
+    this.uri = uri
+    this.client = await MongoClient.connect(uri)
+  }
+
+  static async disconnect (): Promise<void> {
     await this.client.close()
+  }
+
+  static getCollection (name: string): Collection {
+    return this.client.db().collection(name)
   }
 }
