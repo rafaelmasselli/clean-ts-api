@@ -5,9 +5,7 @@ dotenv.config()
 
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
-    const urlMongo = process.env.URL_MONGODB
-    if (!urlMongo) return new Error()
-    await MongoHelper.connect(urlMongo)
+    process.env.URL_MONGODB ? await MongoHelper.connect(process.env.URL_MONGODB) : new Error()
   })
 
   afterAll(async () => {
