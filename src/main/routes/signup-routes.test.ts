@@ -1,8 +1,14 @@
 import request from 'supertest'
 import { app } from '../config/app'
 import { MongoHelper } from '../../infra/db/mongodb/helpers/mongo-helper'
+require('../../utils/env-connection').env()
 
 describe('SignUp Routes', () => {
+  beforeAll(async () => {
+    process.env.URL_MONGODB
+      ? await MongoHelper.connect(process.env.URL_MONGODB)
+      : new Error('error finding mongodb url')
+  })
   afterAll(async () => {
     await MongoHelper.disconnect()
   })
