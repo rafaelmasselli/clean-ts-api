@@ -2,7 +2,6 @@ import { MongoHelper } from '../helpers/mongo-helper'
 import { AccountMongoRepository } from './account'
 import * as dotenv from 'dotenv'
 dotenv.config()
-
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {
     process.env.URL_MONGODB
