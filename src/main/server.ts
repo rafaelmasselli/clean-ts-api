@@ -1,7 +1,7 @@
 
 import { MongoHelper } from '../infra/db/mongodb/helpers/mongo-helper'
 import { app } from './config/app'
-require('../../utils/env-connection').env()
+require('dotenv').config()
 
 process.env.URL_MONGODB
   ? MongoHelper.connect(process.env.URL_MONGODB)
