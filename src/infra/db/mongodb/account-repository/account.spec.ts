@@ -1,6 +1,6 @@
 import { MongoHelper } from '../helpers/mongo-helper'
 import { AccountMongoRepository } from './account'
-require('../../utils/env-connection').env()
+require('dotenv').config()
 
 describe('Account Mongo Repository', () => {
   beforeAll(async () => {

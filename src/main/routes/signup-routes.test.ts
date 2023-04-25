@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { app } from '../config/app'
 import { MongoHelper } from '../../infra/db/mongodb/helpers/mongo-helper'
-require('../../utils/env-connection').env()
+require('dotenv').config()
 
 describe('SignUp Routes', () => {
   beforeAll(async () => {
