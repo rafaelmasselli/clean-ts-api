@@ -1,8 +1,10 @@
-import { MongoClient, type Collection } from 'mongodb'
+import { Collection, Db, MongoClient } from 'mongodb'
+import { AccountModelMongoDB } from '../interface/user-mongodb'
 
 export class MongoHelper {
   static client: MongoClient
   static uri: string
+  static cachedDb: Db
 
   static async connect (uri: string): Promise<void> {
     this.uri = uri
@@ -13,7 +15,16 @@ export class MongoHelper {
     await this.client.close()
   }
 
-  static getCollection (name: string): Collection {
+  static async getCollection (name: string): Promise<Collection> {
+    if (this.cachedDb) {
+      await this.connect(this.uri)
+    }
     return this.client.db().collection(name)
+  }
+
+  static map (collection: any): any {
+    const { _id, ...accountWithoutId } =
+      collection as unknown as AccountModelMongoDB
+    return Object.assign({}, accountWithoutId, { id: _id })
   }
 }
