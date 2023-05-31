@@ -10,13 +10,14 @@ export class LoginController {
   }
 
   async handle (HttpRequest: HttpRequest): Promise<any> {
-    if (!HttpRequest.body.email) {
+    const { email, password } = HttpRequest.body
+    if (!email) {
       return await new Promise((resolve) =>
         resolve(badRequest(new MissingParamError('email')))
       )
     }
 
-    if (!HttpRequest.body.password) {
+    if (!password) {
       return await new Promise((resolve) =>
         resolve(badRequest(new MissingParamError('password')))
       )
