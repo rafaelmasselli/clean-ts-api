@@ -14,7 +14,11 @@ export class SignUpController implements Controller {
   private readonly addAccountStub: AddAccount
   private readonly validation: Validation
 
-  constructor (emailValidator: EmailValidator, addAccountStub: AddAccount, validation: Validation) {
+  constructor (
+    emailValidator: EmailValidator,
+    addAccountStub: AddAccount,
+    validation: Validation
+  ) {
     this.emailValidator = emailValidator
     this.addAccountStub = addAccountStub
     this.validation = validation
@@ -22,19 +26,14 @@ export class SignUpController implements Controller {
 
   async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
+      const error = await this.validation.validate(httpRequest.body)
+      if (error) {
+        return badRequest(error)
+      }
+
       await this.validation.validate(httpRequest.body)
       const { name, email, password, passwordConfirmation } = httpRequest.body
-      const requiredFields = [
-        'name',
-        'email',
-        'password',
-        'passwordConfirmation'
-      ]
-      for (const field of requiredFields) {
-        if (!httpRequest.body[field]) {
-          return badRequest(new MissingParamError(field))
-        }
-      }
+
       if (password !== passwordConfirmation) {
         return badRequest(new InvalidParamError('passwordConfirmation'))
       }
